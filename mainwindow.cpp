@@ -22,5 +22,5 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_REG_LIST_itemSelectionChanged()
 {
-    REG_LISTS->REG_RENAME(ui->REG_LIST->currentRow(), 88);
+    REG_LISTS->REG_RENAME(ui->REG_LIST->currentRow(), 88,"hello");
 }

@@ -13,8 +13,13 @@ REG_LIST::REG_LIST(Ui::MainWindow * p):
         QString itemText = QString("REG_%1").arg(i, 2, 16, QLatin1Char('0')).toUpper();
         ui->REG_LIST->addItem(itemText);
     }
-    //初始化list选中第一项
-    ui->REG_LIST->setCurrentRow(1);
+    ui->REG_TABLE->setColumnCount(5);
+    ui->REG_TABLE->horizontalHeader()->setStretchLastSection(true);
+    ui->REG_TABLE->setHorizontalHeaderLabels(QStringList()<<QString::fromLocal8Bit("DIR")<<QString::fromLocal8Bit("Name")<<QString::fromLocal8Bit("Bits")<<QString::fromLocal8Bit("Value")<<QString::fromLocal8Bit("Description"));
+    ui->REG_TABLE->setRowCount(16);
+
+  ui->REG_TABLE->verticalHeader()->setVisible(false);
+
 }
 
 
@@ -23,18 +28,19 @@ REG_LIST::REG_LIST(Ui::MainWindow * p):
  * @brief REG_LIST::REG_RENAME
  * @param index
  * @param number
- * REG_RENAME(0, 0x12)
- * 给第0个list命名为REG_00 0x12
+ * REG_RENAME(0, 0x12,"power")
+ * 给第0个list命名为REG_00 0x12 power
  */
-void REG_LIST::REG_RENAME(int index, uint16_t number) {
+void REG_LIST::REG_RENAME(int index, uint16_t number, const QString& suffix) {
     if (index >= 0 && index < ui->REG_LIST->count()) {
         QListWidgetItem *item = ui->REG_LIST->item(index);
         if (item) {
-              QString newName = QString("REG_%1 0x%2")
-                                .arg(index, 2, 16, QLatin1Char('0'))   // 确保N是两位数
-                                .arg(number, 4, 16, QLatin1Char('0'))  // 将number格式化为8位16进制数
-                                .toUpper();
+              QString newName = QString("REG_%1 0x%2 %3")
+                                .arg(index, 2, 16, QLatin1Char('0'))   // 确保index是两位数
+                                .arg(number, 4, 16, QLatin1Char('0'))  // 将number格式化为4位16进制数
+                                .arg(suffix);  // 添加自定义字符串
               item->setText(newName);
           }
     }
 }
+

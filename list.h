@@ -13,7 +13,7 @@ class REG_LIST : public QMainWindow
     Q_OBJECT
 public:
     explicit REG_LIST(Ui::MainWindow * p);
- void REG_RENAME(int index, uint16_t number) ;
+ void REG_RENAME(int index, uint16_t number, const QString& suffix) ;
 
     Ui::MainWindow* ui;
 
